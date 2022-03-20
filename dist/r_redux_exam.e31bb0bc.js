@@ -127,10 +127,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var divToggle = document.querySelector(".toggle");
 var counter = document.querySelector("h1");
 var btnIncrease = document.querySelector("#increase");
-var btnDecrease = document.querySelector("#decrease");
+var btnDecrease = document.querySelector("#decrease"); //액션 정의
+
 var TOGGLE_SWITCH = "TOGGLE_SWITCH";
 var INCREASE = "INCREASE";
-var DECREASE = "DECREASE";
+var DECREASE = "DECREASE"; //액션 생성 함수 정의하기
 
 var toggleSwitch = function toggleSwitch() {
   return {
@@ -149,12 +150,13 @@ var decrease = function decrease() {
   return {
     type: DECREASE
   };
-};
+}; //초깃값 설정
+
 
 var initialState = {
   toggle: false,
   counter: 0
-};
+}; //Reducer 만들기
 
 var counterReducer = function counterReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -184,7 +186,10 @@ var counterReducer = function counterReducer() {
     default:
       return state;
   }
-};
+}; //스토어 만들기
+
+
+var store = createStore(counterReducer);
 },{}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -213,7 +218,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49663" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49188" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
