@@ -878,7 +878,7 @@ function isCrushed() {}
 if ("development" !== 'production' && typeof isCrushed.name === 'string' && isCrushed.name !== 'isCrushed') {
   warning('You are currently using minified code outside of NODE_ENV === "production". ' + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or setting mode to production in webpack (https://webpack.js.org/concepts/mode/) ' + 'to ensure you have the correct code for your production build.');
 }
-},{"@babel/runtime/helpers/esm/objectSpread2":"node_modules/@babel/runtime/helpers/esm/objectSpread2.js"}],"index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/esm/objectSpread2":"node_modules/@babel/runtime/helpers/esm/objectSpread2.js"}],"indexsample.js":[function(require,module,exports) {
 "use strict";
 
 var _redux = require("redux");
@@ -889,15 +889,15 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//DOM 레퍼렌스 만들기
-var divToggle = document.querySelector(".toggle");
-var counter = document.querySelector("h1");
-var btnIncrease = document.querySelector("#increase");
-var btnDecrease = document.querySelector("#decrease"); //액션 타입 정의
+var lightDiv = document.getElementsByClassName("light")[0];
+var switchButton = document.getElementById("switch-btn");
+var counterHeadings = document.getElementsByTagName("h1")[0];
+var plusButton = document.getElementById("plus-btn");
+var minusButton = document.getElementById("minus-btn"); // 액션 타입 정의
 
 var TOGGLE_SWITCH = "TOGGLE_SWITCH";
-var INCREASE = "INCREASE";
-var DECREASE = "DECREASE"; //액션 생성 함수 정의
+var INCREMENT = "INCREMENT";
+var DECREMENT = "DECREMENT"; // 액션 생성함수 정의
 
 var toggleSwitch = function toggleSwitch() {
   return {
@@ -905,24 +905,24 @@ var toggleSwitch = function toggleSwitch() {
   };
 };
 
-var increase = function increase(difference) {
+var increment = function increment(diff) {
   return {
-    type: INCREASE,
-    difference: difference
+    type: INCREMENT,
+    diff: diff
   };
 };
 
-var decrease = function decrease() {
+var decrement = function decrement() {
   return {
-    type: DECREASE
+    type: DECREMENT
   };
-}; //초깃값 설정
+}; // 초깃값 설정
 
 
 var initialState = {
-  toggle: false,
+  light: false,
   counter: 0
-}; //리듀서 함수 정의
+}; // 리듀서 함수 정의
 
 function reducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -931,53 +931,61 @@ function reducer() {
   switch (action.type) {
     case TOGGLE_SWITCH:
       return _objectSpread(_objectSpread({}, state), {}, {
-        toggle: !state.toggle
+        // 기존의 값은 그대로 두면서
+        light: !state.light // light 값 반전시키기
+
       });
 
-    case INCREASE:
+    case INCREMENT:
       return _objectSpread(_objectSpread({}, state), {}, {
-        counter: state.counter + action.difference
+        counter: state.counter + action.diff
       });
 
-    case DECREASE:
+    case DECREMENT:
       return _objectSpread(_objectSpread({}, state), {}, {
         counter: state.counter - 1
       });
 
     default:
+      // 지원하지 않는 액션의 경우 상태 유지
       return state;
   }
-} //스토어 만들기
+} // 스토어 만들기
 
 
-var store = (0, _redux.createStore)(reducer); //render 함수 만들기
+var store = (0, _redux.createStore)(reducer); // render 함수 만들기
 
 var render = function render() {
-  var state = store.getState(); //Toggle 처리
+  var state = store.getState(); // 현재 상태를 가져옵니다.
 
-  if (state.toggle) {
-    divToggle.classList.add("active");
+  var light = state.light,
+      counter = state.counter; // 편의상 비구조화 할당
+
+  if (light) {
+    lightDiv.style.background = "green";
+    switchButton.innerText = "끄기";
   } else {
-    divToggle.classList.remove("active");
-  } //Counter 처리
+    lightDiv.style.background = "gray";
+    switchButton.innerText = "켜기";
+  }
 
-
-  counter.innerText = state.counter;
+  counterHeadings.innerText = counter;
 };
 
-render();
-store.subscribe(render); //액션 발생 시키기
+render(); //  구독
 
-divToggle.onclick = function () {
+store.subscribe(render); // **** 이벤트 달아주기, 액션 발생 시키기
+
+switchButton.onclick = function () {
   store.dispatch(toggleSwitch());
 };
 
-btnIncrease.onclick = function () {
-  store.dispatch(increase(1));
+plusButton.onclick = function () {
+  store.dispatch(increment(5));
 };
 
-btnDecrease.onclick = function () {
-  store.dispatch(decrease());
+minusButton.onclick = function () {
+  store.dispatch(decrement());
 };
 },{"redux":"node_modules/redux/es/redux.js"}],"../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -1007,7 +1015,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61004" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60851" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -1183,5 +1191,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
-//# sourceMappingURL=/r_redux_exam.e31bb0bc.js.map
+},{}]},{},["../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","indexsample.js"], null)
+//# sourceMappingURL=/indexsample.7b903037.js.map
